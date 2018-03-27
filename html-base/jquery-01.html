@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		// 1. typeof   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof
+		// 作用：返回一个字符串（返回的是字符串），对于你操作的类型。
+		// 返回类型包括：
+			// 1)Undefined   
+			// 2)Boolean
+			// 3)Number
+			// 4)String
+			// 5)Symbol
+			// 6)Object
+			// 7)Function		
+			console.log(typeof undefined);
+			
+			console.log(typeof null);
+			
+			console.log(typeof true === 'boolean');
+			
+			console.log(typeof 12);
+			console.log(typeof NaN);
+			
+			console.log(typeof Symbol() === 'symbol');
+				
+			console.log(typeof {a:1});
+			// typeof array返回数组
+			console.log(typeof [1,2,3]);
+			
+			console.log(typeof function(){});
+			console.log(typeof class C{});
+			console.log(typeof Math.sin);
+			
+			// 判断数组方法
+			console.log(Array.isArray([1,2,3]));
+	</script>
+</html>

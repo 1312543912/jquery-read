@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		// jQuery首先就是一个函数自执行的形式 ,function()(),进化成下面形式(function(){})()
+		// global代表当window对象存在的时候代表window，window不存在的时候代表this对象。factory表示真正jqeury函数库的具体内容。
+		(function(global, factory){
+			// 判断环境，例如在Commonjs中不存在带有document的window对象，也就是说只有window对象，另一种情况就是在nodejs中不存在document和window对象，我们都需要进行判断
+			// 如果处于Commonjs或者nodejs环境，这个时候module都会存在
+			if ( typeof module === 'object' && typeof module.exports === 'object') {
+				// 如果document存在的话传给jquery（等价于factory，也就是factory(global, true)），如果不存在
+				module.exports = global.document ? factory(global, true) : function(w) {
+					// document不存在也就是没有document对象，抛出异常
+					if(!w.document) { 
+						throw new Error('jquery requeires a window with a document');
+					}
+					// 否则把document传递个jquery
+					return factory(w);
+				}
+			} else {
+				// 这里意思就是为了兼容浏览器，只要不是在nodejs之类的环境，就肯定存在window对象，但是有的浏览器可能不是window，但内部运行时候一定是this指针表示window，所以就是把this传入jquery
+				factory(global)
+			}
+		// 首先判断存不存在window对象
+		})(typeof window !== 'undefined' ? window : this, function(window, noGlobal){
+			// 这部分是jquery内容部分，这节先省略
+			console.log('this is jquery part');
+		})
+	</script>
+</html>
