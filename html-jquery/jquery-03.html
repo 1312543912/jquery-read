@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<h1 id="content">this is h1</h1>
+	</body>
+	<script type="text/javascript">
+		(function(global, factory){
+			factory(window)
+		})(window, function(window, noglobal) {
+			// jquery源码阅读
+			const version = "3.3.1";
+			// 1.创建一个jQuery对象，定一个本地的jQuery
+			const jQuery = function(selector, context) {
+				// jquery对象实际上是一个init的构造函数，这句话怎么理解，就是你使用一个对象的时候，使用的实际是他的实例。
+				// 例如:cat1 = new Cat(); cat1.run();这类的Cat就是构造函数，而我们实际用的是cat1。
+				// 那么我们$() === jQuery() 这个时候就是new的初始化过程，也就是下面的这个返回一个实例。
+				// jQuery.fn就是jQuery的原型，我们把原型下的方法和属性挂在jQuery.fn上，这样以后就不用写jQuery.propotype上。接下来你会明白它是如何挂在jQuery.fn上的
+				return new jQuery.fn.init(selector, context);
+			}
+			// 2.挂载jQuery.prototype到jQuery.fn上
+			jQuery.fn = jQuery.prototype = {
+				// 具体实现以后讲，目前你应该理解：jQuery原型是挂靠在jQuery.fn上的，jQuery('#id')实际上在init过程，使用的是jquery的实例。
+			}
+			// 3.jquery简单选择器
+			const init = jQuery.fn.init = function( selector, context, root ) {
+				//处理：排除$(""), $(null), $(undefined), $(false)
+				if(!selector) {
+					return this;
+				}
+				//处理：selector传入的是字符串, 最简单的选择ID
+				const ele = document.getElementById(selector);
+				this[0] = ele;
+				this.length = 1;
+				return this;
+			}
+			window.jQuery = jQuery;
+		})
+	</script>
+	<script type="text/javascript">
+		// 现在我们已经实现了简单的jQuery选择器，先简单的理解原理，接下来我们讲解它是怎么实现复杂的选择内容。
+		console.log(jQuery('content')[0].innerHTML);
+	</script>
+</html>

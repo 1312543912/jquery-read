@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		// 以下就是jquery简写形式，去除了了很多判断条件，只适合在浏览器中使用
+		(function(global, factory){
+			factory(window)
+		})(window, function(window, noglobal){
+			// 1.首先来说一下jquery中isFunction使用
+			const isFunction = function isFunction(obj) {
+				// 在某些浏览器中， typeof会返回function对于HTML对象标签，例如：type of document.createElement('object') === 'function'
+				// 这里兼容浏览器写法 。我们规定只用是function时候才可以返回function类型
+				return (typeof obj === 'function' && typeof obj.nodeType !== 'number');
+			}
+			// 2. 在jquery中判断指定对象是否是一个窗口
+			const isWindow = function(obj) {
+				return obj != null && obj === obj.window; 
+			}
+			// function(window, noglobal){}这个函数这里是一个作用域，里面的变量不会污染到外面的环境。但是外面要想访问到就必须把这些方法和属性挂载在window对象下。
+			window.isFunction = isFunction;
+			window.isWindow = isWindow;
+		})
+	</script>
+</html>
